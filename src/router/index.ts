@@ -11,6 +11,12 @@ const routes = [
   { path: '/compound-interest', component: () => import('../pages/CompoundInterest.vue'), meta: { title: 'Compound Interest Calculator - Future Value Growth' } },
   { path: '/paypal-fees', component: () => import('../pages/PayPalFees.vue'), meta: { title: 'PayPal Fee Calculator - Net Profit Estimator' } },
   { path: '/stripe-fees', component: () => import('../pages/StripeFees.vue'), meta: { title: 'Stripe Fee Calculator - Global Payouts' } },
+  { path: '/unit-converter', component: () => import('../pages/UnitConverter.vue'), meta: { title: 'Unit Converter - Shipping & Logistics' } },
+  { path: '/sales-tax', component: () => import('../pages/SalesTax.vue'), meta: { title: 'Sales Tax Calculator - Final Price Estimator' } },
+  { path: '/salary', component: () => import('../pages/Salary.vue'), meta: { title: 'Salary Calculator - Hourly to Annual Pay' } },
+  { path: '/roi', component: () => import('../pages/ROI.vue'), meta: { title: 'ROI Calculator - Investment Efficiency' } },
+  { path: '/percent-change', component: () => import('../pages/PercentChange.vue'), meta: { title: 'Percentage Change Calculator - Growth Analytics' } },
+  { path: '/marketplace-fees', component: () => import('../pages/MarketplaceFees.vue'), meta: { title: 'Marketplace Fee Calculator - Amazon & Etsy' } },
   { path: '/privacy', component: () => import('../pages/PrivacyPolicy.vue'), meta: { title: 'Privacy Policy - ToolMint' } },
   { path: '/terms', component: () => import('../pages/TermsOfService.vue'), meta: { title: 'Terms of Service - ToolMint' } }
 ];

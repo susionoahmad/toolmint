@@ -66,6 +66,43 @@ export const useToolsStore = defineStore('tools', () => {
     fixed: 0.30,
   });
 
+  // Unit Converter State
+  const unitState = ref({
+    value: 0,
+    from: 'kg',
+    to: 'lb',
+  });
+
+  // Sales Tax State
+  const salesTaxState = ref({
+    amount: 0,
+    taxRate: 6,
+  });
+
+  // Salary State
+  const salaryState = ref({
+    amount: 0,
+    frequency: 'hourly',
+  });
+
+  // ROI State
+  const roiState = ref({
+    amountInvested: 0,
+    amountReturned: 0,
+  });
+
+  // Percent Change State
+  const percentChangeState = ref({
+    oldValue: 0,
+    newValue: 0,
+  });
+
+  // Marketplace Fees State
+  const marketplaceState = ref({
+    price: 0,
+    platform: 'amazon',
+  });
+
   return {
     invoiceState,
     marginState,
@@ -75,6 +112,12 @@ export const useToolsStore = defineStore('tools', () => {
     vatState,
     compoundState,
     paypalState,
-    stripeState
+    stripeState,
+    unitState,
+    salesTaxState,
+    salaryState,
+    roiState,
+    percentChangeState,
+    marketplaceState
   };
 });

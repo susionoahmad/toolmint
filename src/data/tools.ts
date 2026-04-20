@@ -6,7 +6,13 @@ import {
   Calculator, 
   TrendingUp, 
   Wallet, 
-  CreditCard 
+  CreditCard,
+  Scale,
+  Banknote,
+  Coins,
+  ArrowUpRight,
+  RefreshCcw,
+  ShoppingBag
 } from 'lucide-vue-next';
 import type { Component } from 'vue';
 
@@ -101,5 +107,59 @@ export const tools: ToolItem[] = [
     icon: TrendingUp,
     category: 'finance',
     cta: 'Grow Wealth →'
+  },
+  {
+    id: 'unit-converter',
+    title: 'Unit Converter',
+    description: 'Quickly convert between common units (kg, lb, meters) for shipping and logistics.',
+    route: '/unit-converter',
+    icon: Scale,
+    category: 'ecommerce',
+    cta: 'Convert Now →'
+  },
+  {
+    id: 'sales-tax',
+    title: 'Sales Tax Calc',
+    description: 'Calculate state and local sales tax for US-based transactions and budgeting.',
+    route: '/sales-tax',
+    icon: Banknote,
+    category: 'billing',
+    cta: 'Check Tax →'
+  },
+  {
+    id: 'salary-calc',
+    title: 'Salary Calculator',
+    description: 'Convert hourly wages to annual salary or monthly gross pay effortlessly.',
+    route: '/salary',
+    icon: Coins,
+    category: 'finance',
+    cta: 'Calculate Pay →'
+  },
+  {
+    id: 'roi-calc',
+    title: 'ROI Calculator',
+    description: 'Measure the efficiency of an investment or compare the efficiency of several investments.',
+    route: '/roi',
+    icon: ArrowUpRight,
+    category: 'ecommerce',
+    cta: 'Measure ROI →'
+  },
+  {
+    id: 'percent-change',
+    title: 'Percent Change',
+    description: 'Calculate the percentage increase or decrease between two values over time.',
+    route: '/percent-change',
+    icon: RefreshCcw,
+    category: 'finance',
+    cta: 'Check Changes →'
+  },
+  {
+    id: 'marketplace-fees',
+    title: 'Marketplace Fees',
+    description: 'Estimate seller fees for platforms like Amazon and Etsy after successful sales.',
+    route: '/marketplace-fees',
+    icon: ShoppingBag,
+    category: 'ecommerce',
+    cta: 'Analyze Profit →'
   }
 ];
