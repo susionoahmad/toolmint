@@ -8,6 +8,7 @@ export const useToolsStore = defineStore('tools', () => {
   const invoiceState = ref({
     clientName: '',
     items: [{ id: '1', name: '', price: 0, qty: 1 }],
+    taxRate: 0,
   });
 
   // Profit Margin State

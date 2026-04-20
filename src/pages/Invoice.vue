@@ -24,6 +24,16 @@
               <p v-if="errors.clientName" class="text-xs text-red-500 mt-1.5">{{ errors.clientName }}</p>
             </div>
             
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Tax Rate (%)</label>
+              <input 
+                type="number" 
+                v-model.number="store.invoiceState.taxRate" 
+                class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                placeholder="e.g. 10"
+              />
+            </div>
+            
             <!-- Items List -->
             <div class="mt-6">
               <h3 class="text-sm font-semibold text-slate-800 mb-3 border-b pb-2">Line Items</h3>
@@ -115,16 +125,26 @@
                 Billed To: <span class="font-normal text-blue-100">{{ store.invoiceState.clientName || '...' }}</span>
               </div>
               
-              <div class="max-h-[180px] overflow-y-auto custom-scrollbar mb-4">
+              <div class="max-h-[150px] overflow-y-auto custom-scrollbar mb-4">
                 <div v-for="item in store.invoiceState.items" :key="item.id" class="flex justify-between py-1 text-blue-100 text-sm">
                   <span class="truncate pr-2">{{ item.name || 'Item' }} <span class="text-blue-300 text-xs">(x{{ item.qty }})</span></span>
                   <span>{{ formatUSD(((item.price || 0) * (item.qty || 0))) }}</span>
                 </div>
               </div>
 
-              <div class="flex justify-between items-center text-2xl font-bold border-t border-blue-500/30 pt-4 text-white">
-                <span>Total Due</span>
-                <span class="text-emerald-300">{{ formatUSD(total) }}</span>
+              <div class="space-y-2 border-t border-blue-500/30 pt-4 text-white">
+                <div class="flex justify-between text-sm text-blue-200">
+                  <span>Subtotal</span>
+                  <span>{{ formatUSD(subtotal) }}</span>
+                </div>
+                <div class="flex justify-between text-sm text-blue-200">
+                  <span>Tax ({{ store.invoiceState.taxRate || 0 }}%)</span>
+                  <span>{{ formatUSD(taxAmount) }}</span>
+                </div>
+                <div class="flex justify-between items-center text-2xl font-bold pt-2">
+                  <span>Total Due</span>
+                  <span class="text-emerald-300">{{ formatUSD(total) }}</span>
+                </div>
               </div>
             </div>
 
@@ -193,10 +213,18 @@ const handleInput = (field: string) => {
   showGate.value = false;
 };
 
-const total = computed(() => {
+const subtotal = computed(() => {
   return store.invoiceState.items.reduce((sum, item) => {
     return sum + ((item.price || 0) * (item.qty || 0));
   }, 0);
+});
+
+const taxAmount = computed(() => {
+  return (subtotal.value * (store.invoiceState.taxRate || 0)) / 100;
+});
+
+const total = computed(() => {
+  return subtotal.value + taxAmount.value;
 });
 
 const addItem = () => {
@@ -275,6 +303,11 @@ const generatePDF = () => {
     y += 10;
   });
   
+  y += 10;
+  doc.setFontSize(10);
+  doc.text(`Subtotal: $${subtotal.value.toFixed(2)}`, 140, y);
+  y += 7;
+  doc.text(`Tax (${store.invoiceState.taxRate || 0}%): $${taxAmount.value.toFixed(2)}`, 140, y);
   y += 10;
   doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
