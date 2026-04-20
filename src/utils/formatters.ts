@@ -14,3 +14,10 @@ export const formatPercent = (value: number) => {
     maximumFractionDigits: 2
   }).format(value) + '%';
 };
+
+export const formatNumber = (value: number) => {
+  if (isNaN(value) || !isFinite(value)) return '0';
+  return new Intl.NumberFormat("en-US", {
+    style: "decimal",
+  }).format(value);
+};
