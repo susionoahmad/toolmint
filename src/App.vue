@@ -32,9 +32,9 @@
           <div class="text-sm text-slate-500">
             &copy; {{ new Date().getFullYear() }} Free Business Tools. All rights reserved.
           </div>
-          <div class="flex gap-4 text-sm text-slate-500">
-            <a href="#" class="hover:text-blue-600 transition">Privacy Policy</a>
-            <a href="#" class="hover:text-blue-600 transition">Terms of Service</a>
+          <div class="flex gap-4 text-sm text-slate-500 font-medium">
+            <router-link to="/privacy" class="hover:text-blue-600 transition underline-offset-4 hover:underline">Privacy Policy</router-link>
+            <router-link to="/terms" class="hover:text-blue-600 transition underline-offset-4 hover:underline">Terms of Service</router-link>
           </div>
         </div>
         <div class="mt-4 text-xs text-slate-400 text-center md:text-left max-w-2xl">

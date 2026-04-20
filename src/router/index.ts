@@ -6,7 +6,9 @@ const routes = [
   { path: '/margin', component: () => import('../pages/Margin.vue'), meta: { title: 'Profit Margin Calculator - Calculate Instantly' } },
   { path: '/discount', component: () => import('../pages/Discount.vue'), meta: { title: 'Discount Calculator - Find Savings Fast' } },
   { path: '/loan', component: () => import('../pages/Loan.vue'), meta: { title: 'Loan Calculator - Estimate Monthly Payments' } },
-  { path: '/dropship', component: () => import('../pages/Dropship.vue'), meta: { title: 'Dropship Profit Calculator - Advanced Analytics' } }
+  { path: '/dropship', component: () => import('../pages/Dropship.vue'), meta: { title: 'Dropship Profit Calculator - Advanced Analytics' } },
+  { path: '/privacy', component: () => import('../pages/PrivacyPolicy.vue'), meta: { title: 'Privacy Policy - ToolMint' } },
+  { path: '/terms', component: () => import('../pages/TermsOfService.vue'), meta: { title: 'Terms of Service - ToolMint' } }
 ];
 
 const router = createRouter({
