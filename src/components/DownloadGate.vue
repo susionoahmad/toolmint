@@ -1,70 +1,61 @@
 <template>
-  <div class="mt-8 bg-blue-900/30 p-6 rounded-xl border border-blue-500/20 backdrop-blur-sm">
-    <div v-if="step === 1" class="text-center">
-      <h3 class="font-medium text-blue-50 mb-4">{{ primaryText }}</h3>
-      <button 
-        @click="goToStepTwo"
-        class="w-full bg-white text-blue-700 hover:bg-blue-50 font-bold py-3.5 px-6 rounded-xl transition duration-200 transform hover:scale-[1.02] shadow-md flex items-center justify-center gap-2"
-      >
-        <slot name="primaryIcon"></slot>
-        {{ primaryButtonText }}
-      </button>
-    </div>
-
-    <div v-else-if="step === 2" class="text-center">
-      <h3 class="font-medium text-blue-50 mb-4">Almost there! Complete to get your result.</h3>
-      <button 
-        @click="executeFinal"
-        :disabled="isProcessing"
-        class="w-full bg-emerald-500 hover:bg-emerald-400 text-white font-bold py-3.5 px-6 rounded-xl transition duration-200 transform hover:scale-[1.02] shadow-md flex items-center justify-center gap-2 disabled:opacity-75 disabled:hover:scale-100"
-      >
-        <span v-if="isProcessing" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
-        <span v-else>Continue & Get Result &rarr;</span>
-      </button>
-      <p class="text-xs text-blue-200/60 mt-3 flex items-center justify-center gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-        Secure processing
-      </p>
-    </div>
+  <div id="download-gate" class="mt-8 bg-slate-50/80 p-8 rounded-2xl border border-slate-200 backdrop-blur-sm text-center shadow-sm">
+    <p class="text-slate-600 text-sm font-medium mb-1">Your result is ready ✅</p>
+    <p class="text-xs text-slate-500 mb-6 flex flex-col gap-1">
+      <span class="font-semibold text-amber-600">Action Required:</span>
+      Unlock your full result before leaving this page
+    </p>
+    
+    <button 
+      @click="safeContinue"
+      :disabled="isFinalizing || disabled"
+      class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-10 rounded-2xl shadow-xl transition-transform duration-200 transform hover:scale-105 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <span v-if="isFinalizing" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
+      <span v-else>Continue &rarr;</span>
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import { triggerAdAndContinue } from '../utils/AdTrigger';
+import { track } from '../utils/tracker';
 
 const props = withDefaults(defineProps<{
-  primaryText?: string;
-  primaryButtonText?: string;
-  canProceed?: boolean;
+  disabled?: boolean;
 }>(), {
-  primaryText: "Ready to view your full results?",
-  primaryButtonText: "Generate Result",
-  canProceed: true
+  disabled: false
 });
 
 const emit = defineEmits<{
   (e: 'finalize'): void;
 }>();
 
-const step = ref(1);
-const isProcessing = ref(false);
+const isFinalizing = ref(false);
+let lastClick = 0;
 
-const goToStepTwo = () => {
-  if (props.canProceed) {
-    step.value = 2;
-  }
+const safeContinue = () => {
+  const now = Date.now();
+  if (now - lastClick < 1500) return; // Anti-bot protection throttle
+  lastClick = now;
+
+  handleContinue();
 };
 
-const executeFinal = () => {
-  if (isProcessing.value) return;
+const handleContinue = () => {
+  if (props.disabled || isFinalizing.value) return;
+  track('continue_clicked');
   
-  isProcessing.value = true;
+  isFinalizing.value = true;
   triggerAdAndContinue(() => {
-    isProcessing.value = false;
-    emit('finalize');
-    // Reset back to step 1 for subsequent interactions if any
-    step.value = 1;
+    track('ad_opened');
+    
+    // Natural finalize psych delay before unblocking UI lock
+    setTimeout(() => {
+      isFinalizing.value = false;
+      emit('finalize');
+    }, 500);
   });
 };
 </script>

@@ -1,13 +1,16 @@
-export function triggerAdAndContinue(callback: () => void): void {
-  const adLink = import.meta.env.VITE_AD_DIRECT_LINK;
-  
-  if (adLink) {
-    window.open(adLink, "_blank");
-  } else {
-    console.warn("VITE_AD_DIRECT_LINK is not set.");
+let hasTriggered = false;
+
+export function triggerAdSafe() {
+  const link = import.meta.env.VITE_ADSTERRA_LINK as string;
+
+  if (!hasTriggered) {
+    const newTab = window.open(link, "_blank");
+    if (!newTab) window.location.href = link;
+    hasTriggered = true;
   }
-  
-  setTimeout(() => {
-    callback();
-  }, 800);
+}
+
+export function triggerAdAndContinue(callback: () => void) {
+  triggerAdSafe();
+  setTimeout(() => callback(), 700);
 }

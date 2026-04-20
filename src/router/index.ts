@@ -14,9 +14,4 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, _from, next) => {
-  document.title = (to.meta.title as string) || 'Free Business Tools';
-  next();
-});
-
 export default router;

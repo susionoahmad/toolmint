@@ -34,7 +34,13 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { setSEO } from '../utils/seo';
 import { Receipt, Percent, Tag, Landmark, Calculator } from 'lucide-vue-next';
+
+onMounted(() => {
+  setSEO('Free Business & Finance Tools', 'Simple, high-converting tools to help you calculate, plan, and grow your modern business.');
+});
 
 const tools = [
   {
