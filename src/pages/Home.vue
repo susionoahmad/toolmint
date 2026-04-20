@@ -36,66 +36,9 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { setSEO } from '../utils/seo';
-import { Receipt, Percent, Tag, Landmark, Calculator, TrendingUp, Wallet, CreditCard } from 'lucide-vue-next';
+import { tools } from '../data/tools';
 
 onMounted(() => {
   setSEO('Free Business & Finance Tools', 'Simple, high-converting tools to help you calculate, plan, and grow your modern business.');
 });
-
-const tools = [
-  {
-    title: 'Invoice Generator',
-    description: 'Create professional PDF invoices instantly to bill your clients accurately and securely.',
-    route: '/invoice',
-    icon: Receipt
-  },
-  {
-    title: 'Margin Calculator',
-    description: 'Determine your profit and margin percentages quickly to optimize your pricing strategy.',
-    route: '/margin',
-    icon: Calculator
-  },
-  {
-    title: 'VAT Calculator',
-    description: 'Easily calculate VAT added or removed for invoices and global business transactions.',
-    route: '/vat',
-    icon: Calculator
-  },
-  {
-    title: 'Discount Calculator',
-    description: 'Find out exactly how much you save and the final price after applying discount percentages.',
-    route: '/discount',
-    icon: Tag
-  },
-  {
-    title: 'Loan Calculator',
-    description: 'Estimate your monthly loan payments easily based on amount, interest rate, and duration.',
-    route: '/loan',
-    icon: Landmark
-  },
-  {
-    title: 'Compound Interest',
-    description: 'Visualize long-term savings growth and future values with compounding frequency options.',
-    route: '/compound-interest',
-    icon: TrendingUp
-  },
-  {
-    title: 'Dropship Profit Calc',
-    description: 'Analyze net profit and margins by factoring in ad spend, product cost, and selling price.',
-    route: '/dropship',
-    icon: Percent
-  },
-  {
-    title: 'PayPal Fees',
-    description: 'Calculate transaction fees and exact net receipts for global PayPal payments.',
-    route: '/paypal-fees',
-    icon: Wallet
-  },
-  {
-    title: 'Stripe Fees',
-    description: 'Estimate payout amounts after Stripe processing fees for e-commerce and SaaS.',
-    route: '/stripe-fees',
-    icon: CreditCard
-  }
-];
 </script>

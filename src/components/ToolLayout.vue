@@ -20,22 +20,18 @@
     </div>
 
     <!-- Internal Linking Component (Revenue Boost) -->
-    <div class="mt-10 border-t border-slate-200 pt-6">
-      <p class="text-sm text-slate-500 mb-4 font-medium">Try similar tools to compare results:</p>
-      <div class="flex flex-wrap gap-3">
-        <router-link to="/invoice" class="bg-white border hover:bg-slate-50 border-slate-200 text-slate-700 text-sm font-medium py-2 px-4 rounded-lg transition shadow-sm">Invoice Generator</router-link>
-        <router-link to="/margin" class="bg-white border hover:bg-slate-50 border-slate-200 text-slate-700 text-sm font-medium py-2 px-4 rounded-lg transition shadow-sm">Margin</router-link>
-        <router-link to="/loan" class="bg-white border hover:bg-slate-50 border-slate-200 text-slate-700 text-sm font-medium py-2 px-4 rounded-lg transition shadow-sm">Loan Calculator</router-link>
-        <router-link to="/discount" class="bg-white border hover:bg-slate-50 border-slate-200 text-slate-700 text-sm font-medium py-2 px-4 rounded-lg transition shadow-sm">Discount</router-link>
-        <router-link to="/dropship" class="bg-white border hover:bg-slate-50 border-slate-200 text-slate-700 text-sm font-medium py-2 px-4 rounded-lg transition shadow-sm">Dropship</router-link>
-      </div>
-    </div>
+    <InternalLoop :currentPath="route.path" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+import InternalLoop from './InternalLoop.vue';
+
 defineProps<{
   title: string;
   description: string;
 }>();
+
+const route = useRoute();
 </script>
