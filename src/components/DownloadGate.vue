@@ -3,7 +3,7 @@
     <p class="text-slate-600 text-sm font-medium mb-1">Your result is ready ✅</p>
     <p class="text-xs text-slate-500 mb-6 flex flex-col gap-1">
       <span class="font-semibold text-amber-600">Action Required:</span>
-      Unlock your full result before leaving this page
+      {{ actionText }}
     </p>
     
     <button 
@@ -24,8 +24,10 @@ import { track } from '../utils/tracker';
 
 const props = withDefaults(defineProps<{
   disabled?: boolean;
+  actionText?: string;
 }>(), {
-  disabled: false
+  disabled: false,
+  actionText: "Unlock your full result before leaving this page"
 });
 
 const emit = defineEmits<{
