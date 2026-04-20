@@ -37,11 +37,44 @@ export const useToolsStore = defineStore('tools', () => {
     adCost: 0,
   });
 
+  // VAT Calculator State
+  const vatState = ref({
+    amount: 0,
+    rate: 20,
+    isRemoving: false,
+  });
+
+  // Compound Interest State
+  const compoundState = ref({
+    principal: 0,
+    rate: 5,
+    years: 10,
+    compounding: 12,
+  });
+
+  // PayPal Fee State
+  const paypalState = ref({
+    amount: 0,
+    rate: 4.4,
+    fixed: 0.30,
+  });
+
+  // Stripe Fee State
+  const stripeState = ref({
+    amount: 0,
+    rate: 2.9,
+    fixed: 0.30,
+  });
+
   return {
     invoiceState,
     marginState,
     discountState,
     loanState,
-    dropshipState
+    dropshipState,
+    vatState,
+    compoundState,
+    paypalState,
+    stripeState
   };
 });
