@@ -50,12 +50,8 @@ const handleContinue = () => {
   isFinalizing.value = true;
   triggerAdAndContinue(() => {
     track('ad_opened');
-    
-    // Natural finalize psych delay before unblocking UI lock
-    setTimeout(() => {
-      isFinalizing.value = false;
-      emit('finalize');
-    }, 500);
+    isFinalizing.value = false;
+    emit('finalize');
   });
 };
 </script>

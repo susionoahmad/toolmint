@@ -12,5 +12,5 @@ export function triggerAdSafe() {
 
 export function triggerAdAndContinue(callback: () => void) {
   triggerAdSafe();
-  setTimeout(() => callback(), 700);
+  callback();
 }
